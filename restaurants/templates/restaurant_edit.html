@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="{% url 'restaurant_edit' id=restaurant.pk %}" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Update">
-</form>
+	{% if user.is_authenticated %}
+			{% if restaurant.owner == user %}
+          <form action="{% url 'restaurant_edit' id=restaurant.pk %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update">
+          </form>
+  {% endif %}
+  {% endif %}
+
 {% endblock %}
