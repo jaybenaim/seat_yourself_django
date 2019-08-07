@@ -1,45 +1,61 @@
 {% extends 'base.html' %}
 {% block content %}
 <main class='restaurant'>
-    <h2>{{ restaurant.name }}</h2>
-    {% if user.is_authenticated %}
-      {% if restaurant.owner == user %}
-      <p> <a href="{% url 'restaurant_edit' id=restaurant.pk %}">Edit restaurant details</a> </p>
-        {% if restaurant.reservations.exists %}
-          <ol>
-            {% for reservation in restaurant.reservations.all %}
-              <li>
-                <p> <time datetime="{{ reservation.date_and_time }}">{{ reservation.date }} at {{ reservation.time }} </time> </p>
-                <p> {{ reservation.user.profile.last_name }}, party of {{ reservation.party_size }} </p>
-                {% if reservation.notes %}
-                  <p class='notes'>{{ reservation.notes }}</p>
-                {% endif %}
-              </li>
-            {% endfor %}
-          </ol>
-        {% else %}
-          <p>No upcoming reservations</p>
-        {% endif %}
-      {% endif %}
+		<h2>{{ restaurant.name }}</h2>
+		{% if user.is_authenticated %}
+			{% if restaurant.owner == user %}
+			<p> <a href="{% url 'restaurant_edit' id=restaurant.pk %}">Edit restaurant details</a> </p>
+				{% if restaurant.reservations.exists %}
+					<ol>
+						{% for reservation in restaurant.reservations.all %}
+							<li>
+								<p> <time datetime="{{ reservation.date_and_time }}">{{ reservation.date }} at {{ reservation.time }} </time> </p>
+								<p> {{ reservation.user.profile.last_name }}, party of {{ reservation.party_size }} </p>
+								{% if reservation.notes %}
+									<p class='notes'>{{ reservation.notes }}</p>
+								{% endif %}
+							</li>
+						{% endfor %}
+					</ol>
+				{% else %}
+					<p>No upcoming reservations</p>
+				{% endif %}
+			{% endif %}
+			
+			<img src="{{restaurant.image}}" > 
+			<p> 
+				{{restaurant.address}}
+				{{restaurant.phone}}
+				{{restaurant.address}}
+			</p> 
+			<p> 
+					Hours: 
+					{{restaurant.opening_time}} - 
+					{{restaurant.closing_time}}
+			</p> 
+			<p> 
+				{{restaurant.description}}
+			</p>
+			
 
-      {% if reservations %}
-      <ol>
-        {% for reservation in reservations %}
-        <li>
-              <p> <time datetime="{{ reservation.date_and_time }}">{{ reservation.date }} at {{ reservation.time }} </time> </p>
-              <p> {{ reservation.user.profile.last_name }}, party of {{ reservation.party_size }} </p>
-              {% if reservation.notes %}
-                <p class='notes'>{{ reservation.notes }}</p>
-              {% endif %}
-        </li>
-        {% endfor %}
-      </ol>
-      {% endif %}
-      <form method='POST' action="{% url 'reservation_create' restaurant_id=restaurant.pk%}">
-        {% csrf_token %}
-        {{ reservation_form.as_p }}
-        <input type="submit" value="Place reservation">
-      </form>
-    {% endif %}
+			{% if reservations %}
+			<ol>
+				{% for reservation in reservations %}
+				<li>
+							<p> <time datetime="{{ reservation.date_and_time }}">{{ reservation.date }} at {{ reservation.time }} </time> </p>
+							<p> {{ reservation.user.profile.last_name }}, party of {{ reservation.party_size }} </p>
+							{% if reservation.notes %}
+								<p class='notes'>{{ reservation.notes }}</p>
+							{% endif %}
+				</li>
+				{% endfor %}
+			</ol>
+			{% endif %}
+			<form method='POST' action="{% url 'reservation_create' restaurant_id=restaurant.pk%}">
+				{% csrf_token %}
+				{{ reservation_form.as_p }}
+				<input type="submit" value="Place reservation">
+			</form>
+		{% endif %}
 </main>
 {% endblock %}

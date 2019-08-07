@@ -5,4 +5,5 @@ from restaurants.models import Restaurant, Reservation, Category, Profile
 admin.site.register(Restaurant)
 admin.site.register(Reservation)
 admin.site.register(Category)
-admin.site.register(Profile)
+admin.site.register(Profile) 
+
