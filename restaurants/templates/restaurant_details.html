@@ -3,10 +3,7 @@
 <main class='restaurant'>
 		<h2>{{ restaurant.name }}</h2>
 		{% if user.is_authenticated %}
-<<<<<<< HEAD
 			
-=======
->>>>>>> 649bcbe5dd825ac9b5da9982095b8285c1d8015d
 			<p> <a href="{% url 'restaurant_edit' id=restaurant.pk %}">Edit restaurant details</a> </p>
 				{% if restaurant.reservations.exists %}
 					<ol>
@@ -23,11 +20,7 @@
 				{% else %}
 					<p>No upcoming reservations</p>
 				{% endif %}
-<<<<<<< HEAD
 			
-=======
-	
->>>>>>> 649bcbe5dd825ac9b5da9982095b8285c1d8015d
 			
 			<img src="{{restaurant.image}}" > 
 			<p>Owner: {{ restaurant.owner }}  </p>
