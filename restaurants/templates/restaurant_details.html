@@ -19,14 +19,11 @@
 				{% else %}
 					<p>No upcoming reservations</p>
 				{% endif %}
-	
-			
 			<img src="{{restaurant.image}}" > 
 			<p> 
 				Restaurant Owner: {{ restaurant.owner }}
 				User: {{ user }}
 			</p> 
-				
 				{{restaurant.address}}
 				{{restaurant.phone}}
 				{{restaurant.address}}
@@ -54,7 +51,6 @@
 			</ol>
 			{% endif %}
 			{% endif %}
-		
 			<form method='POST' action="{% url 'reservation_create' restaurant_id=restaurant.pk%}">
 				{% csrf_token %}
 				{{ reservation_form.as_p }}
