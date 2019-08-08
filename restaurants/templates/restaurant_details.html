@@ -3,7 +3,10 @@
 <main class='restaurant'>
 		<h2>{{ restaurant.name }}</h2>
 		{% if user.is_authenticated %}
+<<<<<<< HEAD
 			
+=======
+>>>>>>> 649bcbe5dd825ac9b5da9982095b8285c1d8015d
 			<p> <a href="{% url 'restaurant_edit' id=restaurant.pk %}">Edit restaurant details</a> </p>
 				{% if restaurant.reservations.exists %}
 					<ol>
@@ -20,11 +23,19 @@
 				{% else %}
 					<p>No upcoming reservations</p>
 				{% endif %}
+<<<<<<< HEAD
 			
+=======
+	
+>>>>>>> 649bcbe5dd825ac9b5da9982095b8285c1d8015d
 			
 			<img src="{{restaurant.image}}" > 
 			<p>Owner: {{ restaurant.owner }}  </p>
 			<p> 
+				Restaurant Owner: {{ restaurant.owner }}
+				User: {{ user }}
+			</p> 
+				
 				{{restaurant.address}}
 				{{restaurant.phone}}
 				{{restaurant.address}}
@@ -37,7 +48,6 @@
 			<p> 
 				{{restaurant.description}}
 			</p>
-			
 			{% if reservations %}
 			{% if restaurant.owner == user %}
 			<ol>
@@ -46,13 +56,15 @@
 							<p> <time datetime="{{ reservation.date_and_time }}">{{ reservation.date }} at {{ reservation.time }} </time> </p>
 							<p> {{ reservation.user.profile.last_name }}, party of {{ reservation.party_size }} </p>
 							{% if reservation.notes %}
-								<p class='notes'>{{ reservation.notes }}</p>
+							<p class='notes'>{{ reservation.notes }}</p>
 							{% endif %}
 				</li>
 				{% endfor %}
 			</ol>	
 			{% endif %}
 			{% endif %}
+			{% endif %}
+		
 			<form method='POST' action="{% url 'reservation_create' restaurant_id=restaurant.pk%}">
 				{% csrf_token %}
 				{{ reservation_form.as_p }}

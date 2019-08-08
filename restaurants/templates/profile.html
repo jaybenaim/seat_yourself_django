@@ -16,15 +16,20 @@
           <h3>My reservations</h3>
           <ol>
             {% for reservation in request.user.reservations_made.all %}
-              <li>
-                <p> <time datetime="{{ reservation.date_and_time }}">{{ reservation.date }} at {{ reservation.time }} </time> </p>
-                <p> {{ reservation.restaurant.name }} </p>
-                <p> {{ reservation.restaurant.address }} </p>
-                <p> Table for {{ reservation.party_size }} </p>
-                {% if reservation.notes %}
-                  <p class='notes'>{{ reservation.notes }}</p>
+              	{% if restaurant.owner != user %}
+                    <li>
+                      <p> <time datetime="{{ reservation.date_and_time }}">{{ reservation.date }} at {{ reservation.time }} </time> </p>
+                      <p> {{ reservation.restaurant.name }} </p>
+                      <p> {{ reservation.restaurant.address }} </p>
+                      <p> Table for {{ reservation.party_size }} </p>
+                      {% if reservation.notes %}
+                        <p class='notes'>{{ reservation.notes }}</p>
+                      {% endif %}
+                    </li>
+                {% else %}
+                    
+
                 {% endif %}
-              </li>
             {% endfor %}
           </ol>
         </section>
