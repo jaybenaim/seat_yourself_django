@@ -1,6 +1,20 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Sum
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from datetime import datetime, timedelta
+from django.core import validators 
+
+
+
+
+# def validate_reservation_time(value): 
+#     if value >= restaurant.closing_time - timedelta(hours=1):
+#         raise ValidationError(_('You can not book that time - %(value). A bit too close to closing time. Try a little earlier. '), 
+#         params={
+#             'value': value
+#         } )
 
 class Profile(models.Model):
     first_name = models.CharField(max_length=255)
@@ -72,4 +86,3 @@ class Reservation(models.Model):
         date = self.date.strftime("%Y-%m-%d")
         time = self.time.strftime("%H:%M")
         return "{} {}".format(date, time)
-

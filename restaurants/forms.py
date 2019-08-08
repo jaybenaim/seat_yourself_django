@@ -23,7 +23,7 @@ class ReservationForm(ModelForm):
         opening = restaurant.opening_time
 
         if restaurant.open_past_midnight():
-            if closing < cleaned_time and cleaned_time < opening:
+            if closing < cleaned_time and cleaned_time < opening and cleaned_time <= closing - timedelta(hours=1):
                 self.add_error('time', 'Restaurant not open at that time')
         else:
             if cleaned_time < opening or closing < cleaned_time:
