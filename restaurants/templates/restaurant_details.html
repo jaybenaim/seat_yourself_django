@@ -3,7 +3,7 @@
 <main class='restaurant'>
 		<h2>{{ restaurant.name }}</h2>
 		{% if user.is_authenticated %}
-			{% if restaurant.owner == user %}
+			
 			<p> <a href="{% url 'restaurant_edit' id=restaurant.pk %}">Edit restaurant details</a> </p>
 				{% if restaurant.reservations.exists %}
 					<ol>
@@ -20,9 +20,10 @@
 				{% else %}
 					<p>No upcoming reservations</p>
 				{% endif %}
-			{% endif %}
+			
 			
 			<img src="{{restaurant.image}}" > 
+			<p>Owner: {{ restaurant.owner }}  </p>
 			<p> 
 				{{restaurant.address}}
 				{{restaurant.phone}}
@@ -38,6 +39,7 @@
 			</p>
 			
 			{% if reservations %}
+			{% if restaurant.owner == user %}
 			<ol>
 				{% for reservation in reservations %}
 				<li>
@@ -48,7 +50,8 @@
 							{% endif %}
 				</li>
 				{% endfor %}
-			</ol>
+			</ol>	
+			{% endif %}
 			{% endif %}
 			<form method='POST' action="{% url 'reservation_create' restaurant_id=restaurant.pk%}">
 				{% csrf_token %}
